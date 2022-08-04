@@ -40,15 +40,17 @@ extension UIViewController: PanModalPresenter {
      - Note: sourceView & sourceRect are only required for presentation on an iPad.
      */
     public func presentPanModal(_ viewControllerToPresent: PanModalPresentable.LayoutType,
+                                isPadPopver: Bool = true,
                                 sourceView: UIView? = nil,
                                 sourceRect: CGRect = .zero,
-                                completion: (() -> Void)? = nil) {
+                                completion: (() -> Void)? = nil
+    ) {
 
         /**
          Here, we deliberately do not check for size classes. More info in `PanModalPresentationDelegate`
          */
 
-        if UIDevice.current.userInterfaceIdiom == .pad {
+        if UIDevice.current.userInterfaceIdiom == .pad && isPadPopver {
             viewControllerToPresent.modalPresentationStyle = .popover
             viewControllerToPresent.popoverPresentationController?.sourceRect = sourceRect
             viewControllerToPresent.popoverPresentationController?.sourceView = sourceView ?? view
